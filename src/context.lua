@@ -18,7 +18,13 @@ RegisterNetEvent('gx_client:main-boss', function(name_gang, rank_disable, shopga
         disabled = rank_disable,
         onSelect = function()
 
-          
+          for i = 1, #options.territorios_default do
+            if name_gang == options.territorios_default[i].Gang.name then
+              lib.callback('gx_server:StashBoss', source, false, {name_gang = name_gang, slots = options.territorios_default[i].Gang.stashboss.slots, weight = options.territorios_default[i].Gang.stashboss.weight})
+              Wait(100)
+              exports['ox_inventory']:openInventory('stash', {id='Boss - '..name_gang})
+            end -- guxboss
+          end
 
         end
       },
@@ -114,7 +120,6 @@ RegisterNetEvent('gx_client:main-boss', function(name_gang, rank_disable, shopga
         iconColor = 'Brown',
         disabled = stashgang_disabled,
         onSelect = function()
-
           for i = 1, #options.territorios_default do
             if name_gang == options.territorios_default[i].Gang.name then
               lib.callback('gx_server:StashGang', source, false, {name_gang = name_gang, slots = options.territorios_default[i].Gang.stashgang.slots, weight = options.territorios_default[i].Gang.stashgang.weight})
@@ -161,67 +166,12 @@ RegisterNetEvent('gx_client:main-boss', function(name_gang, rank_disable, shopga
   lib.showContext('boss_menu')
 end)
 
+RegisterNetEvent('gx_client:OpenMainGarage', function(data)
+
+  local result = lib.callback('gx_server:garage', source, false, {condicion = 'sacar', plate = vehiclePlate, name = vehicleName, property = json.encode(vehicleProps), name_gang = data.Gang.name})
+ 
+  lib.showContext('Garage_car')
+end)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-lib.registerContext({
-    id = 'a',
-    title = 'Abrir el menú',
-    options = {
-      {
-        title = 'Empty button',
-      },
-      {
-        title = 'Disabled button',
-        description = 'This button is disabled',
-        icon = 'hand',
-        disabled = true
-      },
-      {
-        title = 'Example button',
-        description = 'Example button description',
-        icon = 'circle',
-        onSelect = function()
-          print("Pressed the button!")
-        end,
-        metadata = {
-          {label = 'Value 1', value = 'Some value'},
-          {label = 'Value 2', value = 300}
-        },
-      },
-      {
-        title = 'Menu button',
-        description = 'Takes you to another menu!',
-        menu = 'other_menu',
-        icon = 'bars'
-      },
-      {
-        title = 'Event button',
-        description = 'Open a menu from the event and send event data',
-        icon = 'check',
-        event = 'test_event',
-        arrow = true,
-        args = {
-          someValue = 500
-        }
-      }
-    }
-    
-  })
+  -- 🐧

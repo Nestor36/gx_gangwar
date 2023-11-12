@@ -38,3 +38,21 @@ function CreateBlips(circle_visible, circle_color, circle_radius, circle_degrada
 	end
 
 end
+
+function CreateTexT2D(text, text2)
+	SetTextFont(0)
+	SetTextProportional(1)
+	SetTextScale(0.30, 0.30)
+	SetTextColour(255, 255, 255, 255)
+	SetTextDropshadow(0, 0, 0, 0, 255)
+	SetTextEdge(1, 0, 0, 0, 255)
+	SetTextDropShadow()
+	SetTextOutline()
+	SetTextRightJustify(true)
+	SetTextWrap(0.0,0.58)
+	SetTextEntry("STRING")
+	AddTextComponentString(text..''..text2)
+	DrawText(0.5, 0.90)
+end
+
+-- 🐧

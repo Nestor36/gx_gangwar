@@ -95,6 +95,12 @@ lib.callback.register('gx_server:ShopGang', function(source, data)
 
 end)
 
+lib.callback.register('gx_server:StashBoss', function(source, data)
+
+    exports['ox_inventory']:RegisterStash('Boss - '..data.name_gang, 'Boss - '..data.name_gang, data.slots, data.weight, false)
+
+end)
+
 lib.callback.register('gx_server:StashGang', function(source, data)
 
     exports['ox_inventory']:RegisterStash(data.name_gang, 'Inventario de '..data.name_gang, data.slots, data.weight, false)
@@ -115,7 +121,7 @@ lib.callback.register('gx_server:invitePlayer', function(source, data)
         return 'Enemy'
     end
     if getInf[1].name_gang == 'desconocido' then
-        MySQL.query.await(    MySQL.insert('UPDATE users SET name_gang=@name_gang, rank_label=@rank_label WHERE identifier=@identifier', {['@name_gang'] = name_gang, ['@rank_label'] = 'member', ['@identifier'] = Player.identifier}))
+        MySQL.query.await(MySQL.insert('UPDATE users SET name_gang=@name_gang, rank_label=@rank_label WHERE identifier=@identifier', {['@name_gang'] = data.name_gang, ['@rank_label'] = 'member', ['@identifier'] = Player.identifier}))
         return 'Invited'
     end
 
@@ -157,9 +163,44 @@ end)
 
 
 
+--[[ GARAGE GANG ]]
+
+lib.callback.register('gx_server:garage', function(source, data)
+
+    if data.condicion == 'guardar' then
+    
+        local result = MySQL.query.await('SELECT * FROM gx_gangcar WHERE name_gang = ?', {data.name_gang})
+
+        for i = 1, #result do
+            if result[i].plate == data.plate then
+                return 'YaExiste'
+            end
+        end
+        
+        MySQL.insert('INSERT INTO gx_gangcar (plate, name_gang, name, properties) VALUES (?, ?, ?, ?) ', {
+            data.plate, data.name_gang, data.name, data.property})
+
+    end
+
+    if data.condicion == 'sacar' then
+        -- Usando FIVEM SQL
+        local result = MySQL.query.await('SELECT * FROM gx_gangcar WHERE name_gang = ?', {data.name_gang})
+
+        return result[1]
+
+
+
+    end
+
+
+
+
+end)
 
 
 
 
 
 
+
+-- 🐧

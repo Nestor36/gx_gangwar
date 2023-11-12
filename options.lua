@@ -11,13 +11,24 @@
 options = {
     controlPress = 38, -- Puedes modificar con qué control abrir el menú => https://docs.fivem.net/docs/game-references/controls/
 
+
+
     territorios_default = { -- puedes aumentar los territorios que gustes : ) -- No juntar las áreas ni acercarlos, tener un espacio recomendado. (evite sobreposiciones innecesarias
     { 
         Gang = {
             name              = 'Los Ballas', -- Name of gang
             coords            = vector3(-2006.7417, -334.9551, 48.1063),
+            Text2D            = true,
+
+            
+            garage            = {
+                disabled = false,
+                coords = vector3(0, 0, 0),
+
+            },
+
             --
-            shopgang_disabled = true,
+            shopgang_disabled = true, -- afecta a miembros y Jefe
             shopgang          = { -- No touch " type = 'number', default = 0 "
                 { type  = 'number', default = 0, label = 'pistolita $50', item = 'WEAPON_PISTOL', price = 500},
                 { type  = 'number', default = 0, label = 'water  $50', item = 'water', price = 500},
@@ -25,11 +36,17 @@ options = {
                 -- puedes añadir más
             },
 
-            stashgang = {
-                disabled = false,
-                slots = 7,
+            stashboss = {
+                slots = 10,
                 weight = 100000,
             },
+
+            stashgang = { 
+                disabled = false, -- afecta a miembros y Jefe
+                slots = 50,
+                weight = 100000,
+            },
+
 
             sellgang = {
                 disabled   = false,
@@ -65,8 +82,19 @@ options = {
     
     { 
         Gang = {
-            coords      = vector3(-430.0518, 1182.3202, 325.8266),
-            name        = 'Los Grove', -- Nombre : )
+            name              = 'Los Grove', -- Nombre : )
+            coords            = vector3(-430.0518, 1182.3202, 325.8266),
+            Text2D            = false,
+            --
+
+
+                        
+            garage            = {
+                disabled = false,
+                coords = vector3(-411.2984, 1173.9546, 325.6418),
+                
+            },
+
             shopgang_disabled = false,
             shopgang    = {
                 
@@ -77,6 +105,11 @@ options = {
 
             },
 
+            stashboss = {
+                slots = 10,
+                weight = 100000,
+            },
+
             stashgang = {
                 disabled = false,
                 slots = 7,
@@ -85,7 +118,7 @@ options = {
         },
 
         PropModel = {
-            prop_model = `p_cs_locker_01_s`, -- Prop => https://gtahash.ru
+            prop_model = `p_secret_weapon_02`, -- Prop => https://gtahash.ru
             heading = 338.6376, -- Rotación del prop
             upordown   = -1.00 -- Puedes remover el "-" para subir el prop
         },
@@ -93,7 +126,7 @@ options = {
         Blip = {
             circle = {
                 visible = true,
-                radius = 0.5, -- radio del área
+                radius = 3, -- radio del área
                 color = 15,
                 degradado = 100,
             },
