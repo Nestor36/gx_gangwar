@@ -13,89 +13,102 @@ options = {
 
     territorios_default = { -- puedes aumentar los territorios que gustes : ) -- No juntar las áreas ni acercarlos, tener un espacio recomendado. (evite sobreposiciones innecesarias
     { 
-        coords      = vector3(-2008.9847, -330.9001, 48.1063),
-        blipsCircle = { visible = true, color = 15, degradado = 100}, -- Color => https://docs.fivem.net/docs/game-references/blips/
-        blipcenter  = { visible = true, color = 1, blip = 84}, -- Blip => https://docs.fivem.net/docs/game-references/blips/
-        radius      = 0.5,--0.5, -- Radio del área
-        name        = 'Los Ballas', -- Nombre : )
-        prop_model  = `p_cs_locker_01_s`,   -- Prop => https://gtahash.ru
-        upordown    = -1.00, -- Puedes remover el "-" para subir el prop
-        stash       = { slots = 30, weight = 1000000 }, -- Slots => Cuántos recuadros tendrá disponible? / weight => Cuánto peso tendrá disponible el inventario?
-        time_01s    = 5, -- Tiempo en segundos en la toma de un territorio nuevo
-        anim        = { movement_disabled = false, active_anim = false, dict = 'missheistfbisetup1', clip = 'hassle_intro_loop_f', }, -- movement_disabled => Sí quieres que no haya algún movimiento de parte del usuario cámbie a true, en caso contrario deje en false. active_anim => Para activar alguna animación al momento de capturar.. 
-        bossInv     = {
-            active = true,
-            stash  = {slots = 4, weight = 100000}
+        Gang = {
+            name              = 'Los Ballas', -- Name of gang
+            coords            = vector3(-2006.7417, -334.9551, 48.1063),
+            --
+            shopgang_disabled = true,
+            shopgang          = { -- No touch " type = 'number', default = 0 "
+                { type  = 'number', default = 0, label = 'pistolita $50', item = 'WEAPON_PISTOL', price = 500},
+                { type  = 'number', default = 0, label = 'water  $50', item = 'water', price = 500},
+                { type  = 'number', default = 0, label = 'burger  $50', item = 'burger', price = 500},
+                -- puedes añadir más
+            },
 
-        },
-        bossShop_Active = true,
-        bossShop    =  {
-            { type  = a1, default = a2, label = 'pistolita $50', weapon = 'weapon_pistol',   price = 50},
-            { type  = a1, default = a2, label = 'batesote  $50',  weapon = 'weapon_bat',      price = 50},
-            { type  = a1, default = a2, label = 'aguita  $50',  weapon = 'water',      price = 50},
-                        -- puedes añadir más
-        },
-        drugsell    = { 
-            active  = true, 
-            ped     = 'u_f_o_prolhost_01',
-            coords  = vector3(-383.4044, 1170.9150, 325.8664),
-            sell    = { -- Cualquier item que no sea armas puede usar, sí quiere usar armas como modo de venta, por favor utilice mayúsculas o no funcionará correctamente :)
-                { type  = a1, default = a2, label = 'Cocaine $150', item = 'cocaine',   sell = 50, money = 'money'},
-                { type  = a1, default = a2, label = 'Marihuana $150', item = 'marijuana',   sell = 50, money = 'black_money'},
-                            -- puedes añadir más
+            stashgang = {
+                disabled = false,
+                slots = 7,
+                weight = 100000,
+            },
+
+            sellgang = {
+                disabled   = false,
+                coords     = vector3(0,0,0),
+                sell_items = {
+                    { type  = a1, default = a2, label = 'Cocaine $150', item = 'cocaine',   sell = 50, money = 'money'},
+                    { type  = a1, default = a2, label = 'Marihuana $150', item = 'marijuana',   sell = 50, money = 'black_money'},
+                }
             }
-        }
+        },
+
+        PropModel = {
+            prop_model = `p_cs_locker_01_s`, -- Prop => https://gtahash.ru
+            heading = 338.6376, -- Rotación del prop
+            upordown   = -1.00 -- Puedes remover el "-" para subir el prop
+        },
+
+        Blip = {
+            circle = {
+                visible = true,
+                radius = 0.5, -- radio del área
+                color = 15,
+                degradado = 100,
+            },
+            icon = {
+                visible = false,
+                icon = 84, -- https://docs.fivem.net/docs/game-references/blips/
+                color = 1, -- https://docs.fivem.net/docs/game-references/blips/#blip-colors
+            }
+        },
+        
     },
     
     { 
-        coords      = vector3(-2005.3000, -326.3560, 48.1063),
-        blipsCircle = { visible = true, color = 5, degradado = 100},
-        blipcenter  = { visible = true, color = 1, blip = 84},
-        radius      = 30, 
-        name        = 'Los Grove',
-        prop_model  = `p_cs_locker_01_s`,
-        stash       = { slots = 30, weight = 10000 },
-        upordown    = -1.00,
-        time_01s    = 5, -- 5
-        anim        = { movement_disabled = false, active_anim = false, dict = 'missheistfbisetup1', clip = 'hassle_intro_loop_f', }, -- la animación al querer conseguir el territorio
-        bossInv     = {
-            active = true,
-            stash  = {slots = 4, weight = 100000}
-            
-        },
-        bossShop_Active = true,
-        bossShop    =  {
-            { type = a1, default = a2, label = 'SMG $1500', weapon = 'weapon_smg',   price = 1500, money = 'money'},
-            { type = a1, default = a2, label = 'Pistola  $5000',  weapon = 'weapon_pistol',      price = 5000, money = 'money' },
-        },
-        drugsell    = { 
-            active  = true, 
-            ped     = 'g_f_y_vagos_01',
-            coords  = vector3(-1037.0405, -1081.6139, 3.3197),
-            sell    = { -- Cualquier item que no sea armas puede usar, sí quiere usar armas como modo de venta, por favor utilice mayúsculas o no funcionará correctamente :)
-                { type  = a1, default = a2, label = 'Cocaine $150', item = 'cocaine',   sell = 50, money = 'money'},
-                { type  = a1, default = a2, label = 'Marihuana $150', item = 'marijuana',   sell = 50, money = 'black_money'},
+        Gang = {
+            coords      = vector3(-430.0518, 1182.3202, 325.8266),
+            name        = 'Los Grove', -- Nombre : )
+            shopgang_disabled = false,
+            shopgang    = {
+                
+                { type  = 'number', default = 0, label = 'A PISTOL $50', item = 'weapon_pistol', price = 500},
+                { type  = 'number', default = 0, label = 'water  $50', item = 'water', price = 500},
+                { type  = 'number', default = 0, label = 'burger  $50', item = 'burger', price = 500},
                             -- puedes añadir más
-            }
 
-        }
+            },
+
+            stashgang = {
+                disabled = false,
+                slots = 7,
+                weight = 100000,
+            },
+        },
+
+        PropModel = {
+            prop_model = `p_cs_locker_01_s`, -- Prop => https://gtahash.ru
+            heading = 338.6376, -- Rotación del prop
+            upordown   = -1.00 -- Puedes remover el "-" para subir el prop
+        },
+
+        Blip = {
+            circle = {
+                visible = true,
+                radius = 0.5, -- radio del área
+                color = 15,
+                degradado = 100,
+            },
+            icon = {
+                visible = false,
+                icon = 84, -- https://docs.fivem.net/docs/game-references/blips/
+                color = 1, -- https://docs.fivem.net/docs/game-references/blips/#blip-colors
+            }
+        },
+        
+
     },
 
 
---[[    
-    [4] = { 
-            coords     = vector3(x, y, z),    -- Coords
-            color      = 15,                  -- Color --> https://docs.fivem.net/docs/game-references/blips/
-            degradado  = 100,                 -- Hacer transparente o más fuerte el color
-            radius     = 5,                   -- El rango del área del territorio
-            name       = 'Los pikachus',      -- Nombre del territorio
-            prop_model = `p_cs_locker_01_s`,  -- Prop --> https://gtahash.ru
-            ipordown   = -1.00,               -- puedes remover el "-" para subir el prop
-            time_01s   = 5,                   -- Tiempo en segundos de la toma de un territorio nuevo
-            anim       = { dict = 'missheistfbisetup1', clip = 'hassle_intro_loop_f', movement_disabled = true} -- la animación al querer conseguir el territorio
 
-        },                          
-]]    
 },
 
     

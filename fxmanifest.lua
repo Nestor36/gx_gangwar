@@ -9,7 +9,7 @@
 
 name 'gux_gangwar'
 author 'Discord: GuxFiz'
-description 'Mi primer script Lanzado'
+description 'gx_gangwar'
 
 fx_version 'cerulean'
 game 'gta5'
@@ -25,7 +25,8 @@ shared_scripts {
 
 client_scripts {
 	'src/client.lua',
-	'src/functions.lua'
+	'src/functions.lua',
+	'src/context.lua'
 }
 
 server_scripts {
@@ -38,5 +39,10 @@ dependencies {
 	'ox_lib',
 	'ox_inventory'
 }
+
+escrow_ignore {
+	'options.lua'
+}
+
 
 -- 🐧
