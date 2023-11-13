@@ -121,6 +121,7 @@ RegisterNetEvent('gx_client:OpenGarage', function(data)
       elseif result == 'member' then
           print('member MENU')
           --TriggerEvent('gx_client:main-boss', F_NameGang, true, shopgang_disable, stashgang_disabled)
+          TriggerEvent('gx_client:OpenMainGarage', data)
       elseif result == 'desconocido' then
           print('desconocido MENU')
           --lib.callback('gx_server:CreateGang', source, false, {name_gang = F_NameGang, rank_label = 'boss'})
@@ -140,7 +141,6 @@ end)
 RegisterNetEvent('gx_client:garage')
 AddEventHandler('gx_client:garage', function(data)
     local playerPed = PlayerPedId()
-    Gx_Notify(data.Gang.name, data.Gang.garage.coords.x, data.Gang.garage.coords.y, data.Gang.garage.coords.z)
 
     if IsPedInAnyVehicle(playerPed, false) and IsControlJustPressed(0, options.controlPress) then
       

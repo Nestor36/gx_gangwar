@@ -167,10 +167,71 @@ RegisterNetEvent('gx_client:main-boss', function(name_gang, rank_disable, shopga
 end)
 
 RegisterNetEvent('gx_client:OpenMainGarage', function(data)
+  local playerPed = PlayerPedId()
+
+
+  if IsPedInAnyVehicle(playerPed, false) then
+      
+    local vehicle = GetVehiclePedIsIn(playerPed, false)
+    local vehicleProps = ESX.Game.GetVehicleProperties(vehicle)
+    local vehicleName = GetDisplayNameFromVehicleModel(GetEntityModel(vehicle))
+    local vehiclePlate = ESX.Game.GetVehicleProperties(vehicle).plate
+    
+    print('Estás en un vehículo.')
+    print('Placa del vehículo: ' .. vehiclePlate)
+    print('Nombre del vehículo: ' .. vehicleName)
+    print('Propiedades del vehículo: ' .. json.encode(vehicleProps))
+
+    local result = lib.callback('gx_server:garage', source, false, {condicion = 'guardar', plate = vehiclePlate, name = vehicleName, property = json.encode(vehicleProps), name_gang = data.Gang.name})
+    
+    if result == 'YaExiste' then
+        print('ya existe un auto!')
+    else
+        Citizen.InvokeNative(0xAE3CBE5BF394C9C9, Citizen.PointerValueIntInitialized(vehicle))
+        print('Guardaste el vehículo')
+    end
+
+  else
+
 
   local result = lib.callback('gx_server:garage', source, false, {condicion = 'sacar', plate = vehiclePlate, name = vehicleName, property = json.encode(vehicleProps), name_gang = data.Gang.name})
- 
-  lib.showContext('Garage_car')
+
+--  print(result.plate)
+  
+  if result and #result > 0 then
+    local options = {}
+
+    -- Iterar sobre la tabla para construir opciones de menú
+    for _, date in ipairs(result) do
+
+        print(json.encode(date), _)
+        local option = {
+            title = date['vehicleName'],
+            description = 'Plate: ' .. date['vehiclePlate'],
+            icon = 'car',
+            onSelect = function()
+              --local coordsGarage = vector4(data.Gang.garage.coords.x, data.Gang.garage.coords.y, data.Gang.garage.coords.z, data.Gang.garage.coords.heading)
+                print('Seleccionado: ' .. date['vehiclePlate'])
+                print(data.Gang.garage.coords, data.Gang.garage.heading)
+                lib.callback('gx_server:garage', source, false, {condicion = 'spawnvehicle', plate = date['vehiclePlate'], name = date['vehicleName'], property = date['vehicleProperty'], coords = data.Gang.garage.coords, heading = data.Gang.garage.heading})
+            end
+        }
+        table.insert(options, option)
+    end
+
+    -- Crear el menú con las opciones
+    lib.registerContext({
+        id = 'Garage_car',
+        title = 'Menu de Vehículos',
+        options = options
+    })
+    lib.showContext('Garage_car')
+  else
+      print('La tabla está vacía o no es válida.')
+  end
+
+  end
+  
 end)
 
 

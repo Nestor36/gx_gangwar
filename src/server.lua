@@ -186,12 +186,59 @@ lib.callback.register('gx_server:garage', function(source, data)
         -- Usando FIVEM SQL
         local result = MySQL.query.await('SELECT * FROM gx_gangcar WHERE name_gang = ?', {data.name_gang})
 
-        return result[1]
+        --return result[1]
+        garageData = {}
+        
+        if json.encode(result) ~= "[]" then
 
+            for i, v in ipairs(result) do
+               
+                garageData[#garageData+1] = {
+                    ["vehicleProperty"] = json.decode(result[i].properties),
+                    ["vehicleName"] = result[i].name,
+                    ["vehiclePlate"] = result[i].plate
+                }
+            end
 
+        else
+            return nil
+        end
+
+        return garageData
 
     end
 
+    if data.condicion == 'spawnvehicle' then
+        
+        local playerPed = GetPlayerPed(-1)
+
+        -- Aquí define la posición donde quieres que aparezca el vehículo
+        --local spawnCoords = vector4(data.coords.x, data.coords.y, data.coords.z, data.heading)
+    
+        -- Crea el vehículo en la posición especificada
+
+        -- Coloca al jugador dentro del vehículo
+        
+
+
+        local SpawnPoint = vector3(data.coords.x, data.coords.y, data.coords.z)
+        ESX.OneSync.SpawnVehicle(joaat(data.name), SpawnPoint, data.heading, data.property, function()
+            --local vehicle = NetworkGetEntityFromNetworkId(vehicle)
+            --TaskWarpPedIntoVehicle(GetPlayerPed(source), vehicle, -1)
+        end)
+        
+        --TaskWarpPedIntoVehicle(playerPed, data.name, -1)
+        --TaskWarpPedIntoVehicle()
+
+        --ESX.Game.SetVehicleProperties(data.name, data.property)
+        Wait(100)
+        
+        MySQL.query('DELETE FROM gx_gangcar WHERE plate = @plate', { ['@plate'] = data.plate })
+    end
+
+    
+
+    
 
 
 

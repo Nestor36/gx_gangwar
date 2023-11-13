@@ -17,7 +17,7 @@ options = {
     { 
         Gang = {
             name              = 'Los Ballas', -- Name of gang
-            coords            = vector3(-2006.7417, -334.9551, 48.1063),
+            coords            = vector3(-2006.7417, -334.9551, 48.1063), heading = 312,
             Text2D            = true,
 
             
@@ -83,7 +83,7 @@ options = {
     { 
         Gang = {
             name              = 'Los Grove', -- Nombre : )
-            coords            = vector3(-430.0518, 1182.3202, 325.8266),
+            coords            = vector3(-430.0518, 1182.3202, 325.8266), heading = 351,
             Text2D            = false,
             --
 
