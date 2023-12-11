@@ -21,8 +21,36 @@ AddEventHandler('gx_client:CreateGang', function(F_NameGang, shopgang_disable, s
             print('member MENU')
             TriggerEvent('gx_client:main-boss', F_NameGang, true, shopgang_disable, stashgang_disabled)
         elseif result == 'desconocido' then
+
             print('desconocido MENU')
-            lib.callback('gx_server:CreateGang', source, false, {name_gang = F_NameGang, rank_label = 'boss'})
+            
+            if lib.progressCircle({
+                duration = options.Conquista.duration * 1000,
+                position = 'middle',
+                useWhileDead = false,
+                canCancel = true,
+                disable = {
+                    move = true;
+                    car = true,
+                },
+                anim = {
+                    dict = options.Conquista.animProp.dic,
+                    clip = options.Conquista.animProp.clip
+                },
+                prop = {
+                    model = options.Conquista.animProp.prop,
+                    bone = options.Conquista.animProp.bone,
+                    pos = options.Conquista.animProp.pos,
+                    rot = options.Conquista.animProp.rot
+                },
+            }) then 
+               lib.callback('gx_server:CreateGang', source, false, {name_gang = F_NameGang, rank_label = 'boss'})
+                ESX.Scaleform.ShowFreemodeMessage('~o~'..F_NameGang, options.anuncio.message, options.anuncio.duration)
+                print('Territorio Tomado') 
+            else 
+                print('No tomo el territorio, intenta nuevamente..') 
+            end
+            --lib.callback('gx_server:CreateGang', source, false, {name_gang = F_NameGang, rank_label = 'boss'})
         elseif result == 'enemy' then
             print('Estás en territorio enemigo!')
 
@@ -34,7 +62,6 @@ AddEventHandler('gx_client:CreateGang', function(F_NameGang, shopgang_disable, s
 
 
 end)
-
 
 Citizen.CreateThread(function()
     for i = 1, #options.territorios_default do
@@ -79,13 +106,14 @@ Citizen.CreateThread(function()
                     Gx_Notify(options.Locales[options.Language]['menu_press']..options.territorios_default[i].Gang.name, options.territorios_default[i].Gang.coords.x, options.territorios_default[i].Gang.coords.y, options.territorios_default[i].Gang.coords.z)
                     if IsControlJustPressed(0, options.controlPress) then
                         TriggerEvent('gx_client:CreateGang', options.territorios_default[i].Gang.name, options.territorios_default[i].Gang.shopgang_disabled, options.territorios_default[i].Gang.stashgang.disabled)
+                        break
                         Wait(500)
                     end
                 end
             end
 
             if distG <= 2 and not options.territorios_default[i].Gang.garage.disabled then
-                Gx_Notify(options.territorios_default[i].Gang.name, options.territorios_default[i].Gang.garage.coords.x, options.territorios_default[i].Gang.garage.coords.y, options.territorios_default[i].Gang.garage.coords.z)
+                Gx_Notify("Presiona ~r~[E]~s~ para abrir el Garage de ~b~"..options.territorios_default[i].Gang.name.."~r~ ~s~", options.territorios_default[i].Gang.garage.coords.x, options.territorios_default[i].Gang.garage.coords.y, options.territorios_default[i].Gang.garage.coords.z)
                 if IsControlJustPressed(0, options.controlPress) then
                 --sleep = false
                     TriggerEvent('gx_client:OpenGarage', options.territorios_default[i])
@@ -93,6 +121,7 @@ Citizen.CreateThread(function()
                 --if IsControlJustPressed(0, options.controlPress) then
                 --    print('yes')
                 --end
+                    break
                 Wait(500)
                 end
             end
@@ -170,6 +199,9 @@ AddEventHandler('gx_client:garage', function(data)
 
     
 end)    
+
+
+
 
 
 -- 🐧

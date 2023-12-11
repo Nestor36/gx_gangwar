@@ -10,6 +10,7 @@
 name 'gux_gangwar'
 author 'Discord: GuxFiz'
 description 'gx_gangwar'
+Group_of_Discord 'https://discord.gg/s8EVaQbu2M'
 
 fx_version 'cerulean'
 game 'gta5'

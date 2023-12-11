@@ -223,11 +223,12 @@ lib.callback.register('gx_server:garage', function(source, data)
 
         local SpawnPoint = vector3(data.coords.x, data.coords.y, data.coords.z)
         ESX.OneSync.SpawnVehicle(joaat(data.name), SpawnPoint, data.heading, data.property, function()
-            --local vehicle = NetworkGetEntityFromNetworkId(vehicle)
+            --putPlayerInVehicle(data.name)
+           -- TaskWarpPedIntoVehicle(playerPed, data.property.plate, -1)
             --TaskWarpPedIntoVehicle(GetPlayerPed(source), vehicle, -1)
         end)
         
-        --TaskWarpPedIntoVehicle(playerPed, data.name, -1)
+        --
         --TaskWarpPedIntoVehicle()
 
         --ESX.Game.SetVehicleProperties(data.name, data.property)

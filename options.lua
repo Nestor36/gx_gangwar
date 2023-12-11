@@ -11,7 +11,26 @@
 options = {
     controlPress = 38, -- Puedes modificar con qué control abrir el menú => https://docs.fivem.net/docs/game-references/controls/
 
+    Conquista = {
+        duration = 5, -- segundos seconds
+        animProp = {
+            -- ANIM
+            dic = 'amb@code_human_in_bus_passenger_idles@female@tablet@idle_a',
+            clip = 'idle_a',
+            -- PROP  
+            prop = `prop_cs_tablet`,
+            bone = 28422, -- default 60309
+            pos = vec3(-0.05, 0.0, 0.0),
+            rot = vec3(0.0, 0.0, 0.0)
 
+        },
+    },
+
+    anuncio = { -- for user
+        message = '~y~El Territorio fue Consquistado',
+        duration = 5,
+    },
+    
 
     territorios_default = { -- puedes aumentar los territorios que gustes : ) -- No juntar las áreas ni acercarlos, tener un espacio recomendado. (evite sobreposiciones innecesarias
     { 
@@ -84,7 +103,7 @@ options = {
         Gang = {
             name              = 'Los Grove', -- Nombre : )
             coords            = vector3(-430.0518, 1182.3202, 325.8266), heading = 351,
-            Text2D            = false,
+            Text2D            = true,
             --
 
 
