@@ -76,4 +76,4 @@ Framework :<br>• <a href="https://github.com/esx-framework">ESX_FRAMEWORK </a>
 <a href="https://github.com/Nestor36/esx_loadingscreen" target="_blank">[GuxFiz]/esx_loadingscreen</a>
 
 ###
-# New Document
+# Nestor Ramos
